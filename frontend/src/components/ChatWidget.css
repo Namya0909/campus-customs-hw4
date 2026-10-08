@@ -1,0 +1,314 @@
+.chat-widget {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.chat-toggle {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(155deg, var(--yale-blue-light) 0%, var(--yale-blue) 55%, var(--yale-blue-dark) 100%);
+  color: var(--paper);
+  font-size: 1.4rem;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 31, 63, 0.35);
+  transition: transform 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);
+}
+
+.chat-unread-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #d32f2f;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  box-shadow: 0 0 0 2px var(--paper);
+}
+
+.chat-toggle:hover {
+  transform: scale(1.06) translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 31, 63, 0.4);
+}
+
+/* Always mounted; opacity/transform/visibility animate the open + close so it feels like a
+   gentle modal rather than an instant pop. visibility (not display) keeps the transition
+   possible while still removing the panel from layout/tab order when closed. */
+.chat-panel {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 12px);
+  width: min(360px, calc(100vw - 48px));
+  height: 460px;
+  background: var(--paper);
+  border-radius: 18px;
+  box-shadow: 0 24px 56px rgba(0, 20, 45, 0.28);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px) scale(0.97);
+  transform-origin: bottom right;
+  transition: opacity 0.28s var(--ease-smooth), transform 0.28s var(--ease-smooth), visibility 0.28s;
+}
+
+.chat-panel-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.chat-header {
+  background: linear-gradient(135deg, var(--yale-blue) 0%, var(--yale-blue-dark) 100%);
+  color: var(--paper);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chat-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  flex-shrink: 0;
+}
+
+.chat-header-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.chat-header-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.98rem;
+  line-height: 1.2;
+}
+
+.chat-header-subtitle {
+  font-size: 0.72rem;
+  color: var(--gold-tint);
+  opacity: 0.9;
+}
+
+.chat-close {
+  background: none;
+  border: none;
+  color: var(--paper);
+  font-size: 1.3rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 2px 4px;
+  opacity: 0.85;
+  transition: opacity 0.15s ease;
+}
+
+.chat-close:hover {
+  opacity: 1;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 14px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--heather-tint);
+}
+
+.chat-bubble {
+  max-width: 85%;
+  padding: 9px 13px;
+  border-radius: 14px;
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+.chat-bubble.assistant {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  align-self: flex-start;
+  border-bottom-left-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0, 31, 63, 0.05);
+}
+
+.chat-bubble.user {
+  background: linear-gradient(135deg, var(--yale-blue-light) 0%, var(--yale-blue) 100%);
+  color: var(--paper);
+  align-self: flex-end;
+  border-bottom-right-radius: 3px;
+}
+
+.chat-typing {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 14px;
+}
+
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--heather-dark);
+  opacity: 0.5;
+  animation: typing-bounce 1.1s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes typing-bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+.chat-turn {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chat-products {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-self: flex-start;
+  max-width: 88%;
+}
+
+.chat-product-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 8px;
+  transition: transform 0.2s var(--ease-smooth), box-shadow 0.2s var(--ease-smooth);
+}
+
+.chat-product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 31, 63, 0.12);
+}
+
+.chat-product-card img {
+  width: 46px;
+  height: 46px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.chat-product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.chat-product-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chat-product-type {
+  font-size: 0.7rem;
+  color: #777;
+  text-transform: capitalize;
+}
+
+.chat-product-tags {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.chat-input-row {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.chat-input-row input {
+  flex: 1;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  font-size: 0.88rem;
+}
+
+.chat-input-row input:focus {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+
+.chat-input-row button {
+  background: var(--yale-blue);
+  color: var(--paper);
+  border: none;
+  border-radius: 10px;
+  padding: 9px 16px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.chat-input-row button:hover:not(:disabled) {
+  background: var(--yale-blue-dark);
+  transform: translateY(-1px);
+}
+
+.chat-input-row button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}

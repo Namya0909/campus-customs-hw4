@@ -1,0 +1,110 @@
+.navbar {
+  background: var(--yale-blue);
+  color: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: 64px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--yale-blue);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.brand-text {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-link {
+  opacity: 0.85;
+  font-size: 0.95rem;
+  padding: 6px 2px;
+  border-bottom: 2px solid transparent;
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-link:hover {
+  opacity: 1;
+  border-bottom-color: rgba(185, 147, 63, 0.5);
+}
+
+.nav-link.active {
+  opacity: 1;
+  border-bottom-color: var(--gold);
+}
+
+.nav-auth {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.nav-greeting {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.nav-logout {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.nav-cta {
+  background: var(--paper);
+  color: var(--yale-blue);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.nav-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+@media (max-width: 720px) {
+  .nav-links {
+    display: none;
+  }
+}

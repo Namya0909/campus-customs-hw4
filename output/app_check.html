@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Campus Customs — Live App Check</title>
+<style>
+  :root {
+    --yale-blue: #00356b;
+    --yale-blue-dark: #001f3f;
+    --heather-tint: #eef0f3;
+    --line: #e3e6ec;
+    --ink: #1a1a1a;
+    --gold: #b9933f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--heather-tint);
+  }
+  header {
+    background: linear-gradient(135deg, var(--yale-blue) 0%, var(--yale-blue-dark) 100%);
+    color: #fff;
+    padding: 36px 24px 44px;
+  }
+  header .wrap { max-width: 920px; margin: 0 auto; }
+  header h1 {
+    margin: 0 0 8px;
+    font-size: 1.7rem;
+  }
+  header p {
+    margin: 0;
+    opacity: 0.85;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  main {
+    max-width: 920px;
+    margin: -24px auto 60px;
+    padding: 0 24px;
+  }
+  .check {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px 30px;
+    margin-bottom: 28px;
+    box-shadow: 0 10px 28px rgba(0, 31, 63, 0.08);
+  }
+  .check-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--yale-blue);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  .check h2 {
+    display: flex;
+    align-items: center;
+    margin: 0 0 6px;
+    font-size: 1.25rem;
+    color: var(--yale-blue);
+  }
+  .check .subtitle {
+    margin: 0 0 18px 40px;
+    color: #666;
+    font-size: 0.9rem;
+  }
+  .screenshot-frame {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--heather-tint);
+    margin-bottom: 16px;
+  }
+  .screenshot-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .missing-shot {
+    padding: 60px 20px;
+    text-align: center;
+    color: #888;
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+  .proves {
+    background: var(--heather-tint);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .proves strong {
+    color: var(--yale-blue);
+  }
+  footer {
+    max-width: 920px;
+    margin: 0 auto 60px;
+    padding: 0 24px;
+    color: #777;
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>Campus Customs — Live App Check</h1>
+    <p>
+      Three checks against the running application (backend on <code>:8010</code>, frontend on <code>:5180</code>),
+      documented for Problem 11. Each check shows a screenshot of the live site and one to two sentences on what
+      it proves.
+    </p>
+  </div>
+</header>
+
+<main>
+
+  <section class="check">
+    <h2><span class="check-number">1</span>Chat: honest stock &amp; price from the database</h2>
+    <p class="subtitle">Asked the chat widget about the Basic Hoodie Big Yale's price and Medium availability.</p>
+
+    <div class="screenshot-frame">
+      <img
+        src="app_check_images/inventory.png"
+        alt="Chat widget showing the assistant's reply about the Basic Hoodie Big Yale's price and Medium stock"
+      />
+    </div>
+
+    <p class="proves">
+      <strong>What this proves:</strong> the assistant answered "<em>How much is the Basic Hoodie Big Yale and do you
+      have it in a Medium?</em>" with "<strong>The Basic Hoodie Big Yale costs $68, and yes&mdash;it's available in
+      Medium. There are 5 Mediums in stock</strong>," which matches <code>catalogue.price</code> (68.0) and
+      <code>inventory.quantity</code> for size M (5 units) exactly — the reply is grounded in the live database, not
+      a guess.
+    </p>
+  </section>
+
+  <section class="check">
+    <h2><span class="check-number">2</span>Dynamic product cards from a category search</h2>
+    <p class="subtitle">Asked the chat widget "show me hoodies" and let it render the resulting product cards.</p>
+
+    <div class="screenshot-frame">
+      <img
+        src="app_check_images/search_cards.png"
+        alt="Chat widget showing product cards for every hoodie after asking 'show me hoodies'"
+      />
+    </div>
+
+    <p class="proves">
+      <strong>What this proves:</strong> the category question triggered <code>search_products("hoodie")</code> and
+      the assistant replied "<strong>Here are the 27 hoodies currently available. Prices range from $45 to $88, and
+      every item is in stock</strong>," rendering all 27 as clickable product cards (image, name, price, stock pill)
+      — not just the handful that happen to be literally labeled "hoodie" in the database — and each card links
+      straight to that product's detail page.
+    </p>
+  </section>
+
+  <section class="check">
+    <h2><span class="check-number">3</span>Usability feature: live filter &amp; count bar (Problem 9)</h2>
+    <p class="subtitle">
+      Selected "Hoodie" from the Products page's category dropdown and watched the result count update instantly.
+    </p>
+
+    <div class="screenshot-frame">
+      <img
+        src="app_check_images/usability_filter.png"
+        alt="Products page showing the category filter set to Hoodie with the count reading 27 of 102"
+      />
+    </div>
+
+    <p class="proves">
+      <strong>What this proves:</strong> the client-side search/filter bar built in Problem 9 narrows the grid
+      instantly with no network request, and the normalized category layer added afterward means selecting
+      "Hoodie" correctly shows <strong>27 of 102</strong> products — every hooded garment regardless of its raw
+      database label — rather than the 5 it would have shown before that fix. The screenshot also shows the logged-in
+      nav state ("Hi, Demo") and the chat launcher, confirming this was captured from the actual running app, not a
+      mockup.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  Generated for Homework 4, Problem 11. Backend responses behind checks 1 and 2 were captured live from
+  <code>POST /chat</code> on <code>localhost:8010</code> on the date this file was written; see
+  <code>output/harness.md</code> and <code>output/usability.md</code> for the full test logs these checks summarize.
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+:root {
+  /* Yale blues */
+  --yale-blue: #00356b;
+  --yale-blue-dark: #001f3f;
+  --yale-blue-light: #286dc0;
+
+  /* Athletic heather grey */
+  --heather: #8b93a1;
+  --heather-dark: #5c6473;
+  --heather-tint: #eef0f3;
+
+  /* Crisp white / ink */
+  --ink: #1a1a1a;
+  --ink-soft: #4a4a4a;
+  --paper: #ffffff;
+  --cloud: #f6f7f9;
+  --line: #e3e6ec;
+
+  /* Subtle gold accent — used sparingly: badges, dividers, focus highlights */
+  --gold: #b9933f;
+  --gold-dark: #8f6f2b;
+  --gold-tint: #f6ead0;
+
+  --accent: #c4d8f2;
+
+  /* Type */
+  --font-display: "Playfair Display", "Iowan Old Style", Georgia, serif;
+  --font-body: "Inter", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif;
+
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+
+  font-family: var(--font-body);
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--cloud);
+  color: var(--ink);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+main {
+  flex: 1;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Shared "high-contrast" price tag and stock pill, used on product cards (grid + chat) */
+.price-tag {
+  display: inline-flex;
+  align-items: center;
+  background: var(--yale-blue-dark);
+  color: var(--paper);
+  font-weight: 700;
+  font-family: var(--font-body);
+  border-radius: 999px;
+  padding: 3px 11px;
+  font-size: 0.82rem;
+  box-shadow: 0 2px 6px rgba(0, 31, 63, 0.35);
+}
+
+.stock-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  background: #e6f4ea;
+  color: #1e7a34;
+}
+
+.stock-pill::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.stock-pill.out {
+  background: #f3eceb;
+  color: #a4262c;
+}

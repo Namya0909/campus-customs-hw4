@@ -1,0 +1,40 @@
+# Secrets — never commit real environment values
+.env
+.env.*
+!.env.example
+
+# Local data pack — campus_customs.db and product photos are provided separately,
+# not committed. See README.md "Local data pack" for exactly where to place them.
+data/
+campus_customs.db
+products/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
